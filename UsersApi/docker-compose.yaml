@@ -1,0 +1,41 @@
+version: '1'
+
+services:
+  UsersApi:
+    image: webapi
+    container_name: UsersApi
+    depends_on:
+      - mongodb
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - 5211
+    ports:
+      - 5211:5211
+    networks:
+      - mybridgenetwork
+    restart: always
+
+  BooksApi:
+    image: webapi
+    container_name: BooksApi
+    depends_on:
+      - mongodb
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - 5273
+    ports:
+      - 5273:5273
+    networks:
+      - mybridgenetwork
+    restart: always
+
+networks:
+  mybridgenetwork:
+    driver: bridge
+
+volumes:
+  mymongovolume:
